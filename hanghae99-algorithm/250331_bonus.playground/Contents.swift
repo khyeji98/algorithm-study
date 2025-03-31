@@ -4,15 +4,17 @@ let input3 = "noon"
 
 func run(input: String) -> Int {
     var result: Bool = true
-    for index in 0..<(input.count/2) {
-        let leadingIndex = input.index(input.startIndex, offsetBy: index)
-        let trailingIndex = input.index(input.endIndex, offsetBy: -index-1)
+    var leadingIndex = input.startIndex
+    var trailingIndex = input.index(before: input.endIndex)
+    for _ in 0..<(input.count/2) {
         if input[leadingIndex] != input[trailingIndex] {
             result = false
             break
         }
+        leadingIndex = input.index(after: leadingIndex)
+        trailingIndex = input.index(before: trailingIndex)
     }
     return result ? 1 : 0
 }
 
-print(run(input: input3))
+print(run(input: input1))
