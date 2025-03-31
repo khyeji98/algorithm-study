@@ -34,39 +34,41 @@ func toLines(_ input: String) -> [String] {
     input.split(separator: "\n").map({ String($0) })
 }
 
-func run(input: [String]) -> String {
-    // 파일 개수가 1개라면 유일한 파일 이름 반환
-    guard Int(input[0]) ?? 0 > 1 else { return input.last ?? "" }
-    // "파일 이름 문자열 -> 문자 배열" 변환
-    let characterSet = input[1..<input.count].map({ $0.map({ $0 }) })
-    var result: [Character] = []
-    // 모든 파일명의 길이가 같다는 전제가 있기 때문에 파일명의 길이만큼만 순환
-    Array(0..<(characterSet.first?.count ?? 0)).forEach { index in
-        var comparedChar: Character?
-        for chars in characterSet {
-            // 첫 문자라면 저장
-            guard comparedChar != nil else {
-                comparedChar = chars[index]
-                continue
+func run(input: [String]) {
+    // 입력값을 받는 부분은 백준과 차이가 있음
+    let fileCount = Int(input[0])!
+    /*
+     let files = input[1...]는 반환 타입이 ArraySlice<String>라서 인덱스 0이 존재하지 않아 에러 발생
+     let files = input[1...].map({ $0 })는 반환 타입이 Array<String>라서 정상적으로 동작
+     백준과는 환경 차이로 인해 성공 여부가 달랐을 것으로 추측
+     */
+    let files = input[1...].map({ $0 })
+    
+    let firstFile = files[0]
+    if fileCount == 1 {
+        print(firstFile)
+    } else {
+        var result: String = ""
+        let length = firstFile.count
+        
+        for index in 0..<length {
+            let stringIndex = firstFile.index(firstFile.startIndex, offsetBy: index)
+            let referenceChar = firstFile[stringIndex]
+            var isMatched: Bool = true
+            
+            for file in files[1...] {
+                let fileStringIndex = file.index(file.startIndex, offsetBy: index)
+                if file[fileStringIndex] != referenceChar {
+                    isMatched = false
+                    break
+                }
             }
-            // 첫 문자가 아니라면 비교하고, 문자가 다르면 패턴이 아니기 때문에 "?" 저장하고 순환 종료
-            if comparedChar != chars[index] {
-                comparedChar = "?"
-                break
-            }
+            
+            result.append(isMatched ? referenceChar : "?")
         }
-        // 문자 인덱스 별 결과 문자를 최종 문자 배열에 추가
-        guard let comparedChar = comparedChar else { return }
-        result.append(comparedChar)
+        print(result)
     }
-    // "문자 배열 -> 문자열" 병합
-    return result.map({ String($0) }).joined()
-}
-
-func runAndPrint(input: [String]) {
-    let result = run(input: input)
-    print(result)
 }
 
 let input = toLines(input1)
-runAndPrint(input: input)
+run(input: toLines(input1))
