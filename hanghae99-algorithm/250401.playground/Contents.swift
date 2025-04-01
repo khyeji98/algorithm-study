@@ -1,18 +1,18 @@
 while let input = readLine() {
-    var result: [Int] = Array(repeating: 0, count: 4)
+    var isLowercase: Int = 0
+    var isUpperCase: Int = 0
+    var isNumber: Int = 0
+    var isWhiteSpace: Int = 0
     for char in input {
-        switch char.asciiValue! {
-        case 32:
-            result[3] += 1
-        case 48...57:
-            result[2] += 1
-        case 65...90:
-            result[1] += 1
-        case 97...122:
-            result[0] += 1
-        default:
-            break
+        if char.isLowercase {
+            isLowercase += 1
+        } else if char.isUppercase {
+            isUpperCase += 1
+        } else if char.isNumber {
+            isNumber += 1
+        } else if char.isWhitespace {
+            isWhiteSpace += 1
         }
     }
-    print(result[0], result[1], result[2], result[3])
+    print(isLowercase, isUpperCase, isNumber, isWhiteSpace)
 }
