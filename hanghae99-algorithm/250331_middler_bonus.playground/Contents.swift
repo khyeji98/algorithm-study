@@ -5,11 +5,27 @@ let input2_k: Int = 1
 
 class Solution {
     func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
-        var dict: [Int: Int] = [:]
+        // 1. 숫자별 빈도수 카운트
+        var frequencyByNum: [Int: Int] = [:]
         for num in nums {
-            dict[num] = (dict[num] ?? 0) + 1
+            frequencyByNum[num, default: 0] += 1
         }
-        return dict.sorted(by: { $0.value > $1.value })[0..<k].map({ $0.key })
+        
+        // 2. 빈도 카운트를 key로 한 딕셔너리(해시테이블) 생성
+        var numsByFrequency: [Int: [Int]] = [:]
+        for (num, frequency) in frequencyByNum {
+            numsByFrequency[frequency, default: []].append(num)
+        }
+        
+        // 3. 가능한 가장 큰 빈도수 값부터 순회하면서 해당되는 수 추출
+        var results: [Int] = []
+        for frequency in stride(from: nums.count, through: 0, by: -1) {
+            results.append(contentsOf: numsByFrequency[frequency] ?? [])
+            if results.count >= k {
+                break
+            }
+        }
+        return Array(results.prefix(k))
     }
 }
 
