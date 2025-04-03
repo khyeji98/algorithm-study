@@ -1,38 +1,70 @@
+class MyStack<T> {
+    private var elements: [T]
+    
+    init(elements: [T] = []) {
+        self.elements = elements
+    }
+    
+    func push(_ x: T) {
+        elements.append(x)
+    }
+    
+    func pop() -> T {
+        elements.removeLast()
+    }
+    
+    func first() -> T? {
+        elements.first
+    }
+    
+    func last() -> T? {
+        elements.last
+    }
+    
+    func isEmpty() -> Bool {
+        elements.isEmpty
+    }
+    
+    func reversed() -> [T] {
+        elements.reversed()
+    }
+    
+    func clear() {
+        elements.removeAll()
+    }
+}
+
 class MyQueue {
-    private var input: [Int] = []
-    private var output: [Int] = []
+    private var input: MyStack<Int> = MyStack()
+    private var output: MyStack<Int> = MyStack()
 
     init() {}
     
     func push(_ x: Int) {
-        input.append(x)
+        input.push(x)
     }
     
     func pop() -> Int {
-        if output.isEmpty {
-            output = input.reversed()
-            input.removeAll()
+        if output.isEmpty() {
+            output = MyStack(elements: input.reversed())
+            input.clear()
         }
-        return output.removeLast()
+        return output.pop()
     }
     
     func peek() -> Int {
-        guard output.isEmpty else { return output.last! }
-        return input.first!
-        /*
-         guard output.isEmpty else { return output[output.endIndex - 1] }
-         return input[input.startIndex]
-         두 코드는 기능과 동작이 모두 동일하지만, 코드표현력 측면에서 last,first와 같이 명시적인 프로퍼티 사용을 최종 최적화로 생각했습니다.
-         */
+        guard output.isEmpty() else { return output.last()! }
+        return input.first()!
     }
     
     func empty() -> Bool {
-        return input.isEmpty && output.isEmpty
+        input.isEmpty() && output.isEmpty()
     }
 }
 
 let queue = MyQueue()
 queue.push(1)
 queue.push(2)
-queue.pop()
 queue.peek()
+queue.pop()
+queue.empty()
