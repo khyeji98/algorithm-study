@@ -1,11 +1,8 @@
 class MyQueue<T> {
-    private var input: [T]
-    private var output: [T]
+    private var input: [T] = []
+    private var output: [T] = []
 
-    init(_ input: [T] = []) {
-        self.input = input
-        self.output = []
-    }
+    init() {}
     
     func push(_ x: T) {
         input.append(x)
@@ -43,23 +40,20 @@ class MyStack {
     }
     
     func pop() -> Int {
-        var newQueue: [Int] = []
-        while queue.size() > 1 {
-            newQueue.append(queue.pop())
+        let queueSize = queue.size()
+        for _ in 0..<(queueSize-1) {
+            queue.push(queue.pop())
         }
-        let output = queue.pop()
-        queue = MyQueue(newQueue)
-        return output
+        return queue.pop()
     }
     
     func top() -> Int {
-        var newQueue: [Int] = []
-        while queue.size() > 1 {
-            newQueue.append(queue.pop())
+        let queueSize = queue.size()
+        for _ in 0..<(queueSize-1) {
+            queue.push(queue.pop())
         }
-        let output = queue.pop()
-        newQueue.append(output)
-        queue = MyQueue(newQueue)
+        let output = queue.peek()
+        queue.push(queue.pop())
         return output
     }
     
