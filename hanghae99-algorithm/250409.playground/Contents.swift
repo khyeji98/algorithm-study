@@ -1,14 +1,12 @@
 class Solution {
     func digitCount(_ num: String) -> Bool {
         let numCount = num.count
-        var digitCountStorage: [Int] = Array(repeating: 0, count: numCount)
-        for digit in num {
-            let digitNum = Int(String(digit))!
-            if numCount > digitNum {
-                digitCountStorage[digitNum] += 1
-            } else { return false }
+        var digitCount: [Int: Int] = [:]
+        for char in num {
+            guard let digit = char.wholeNumberValue else { return false }
+            digitCount[digit, default: 0] += 1
         }
-        let result = digitCountStorage.map({ String($0) }).joined()
+        let result = Array(0..<numCount).map({String(digitCount[$0, default: 0])}).joined()
         return result == num
     }
 }
