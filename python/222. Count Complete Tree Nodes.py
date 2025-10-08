@@ -39,7 +39,7 @@ class Solution2:
             right_nodes = self.countNodes(root.right)
         else:
             left_nodes = self.countNodes(root.left)
-            right_nodes = 1 << right_depth  # 파이썬에서 ^는 XOR 연산자, 
+            right_nodes = 1 << right_depth  # 파이썬에서 ^는 XOR 연산자, 거듭제곱은 **
         
         return left_nodes + right_nodes
     
