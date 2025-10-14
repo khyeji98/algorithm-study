@@ -6,6 +6,8 @@ class TreeNode:
         self.left = left
         self.right = right
 
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         inordered = []
@@ -15,6 +17,6 @@ class Solution:
             inorder(node.left)
             inordered.append(node.val)
             inorder(node.right)
-            
+
         inorder(root)
         return inordered
