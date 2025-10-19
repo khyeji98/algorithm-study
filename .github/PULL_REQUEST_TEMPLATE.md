@@ -1,6 +1,6 @@
 ## 📍 Related Issue
 
-Closed 
+Closes 
 
 ## 📝 풀이법
 
