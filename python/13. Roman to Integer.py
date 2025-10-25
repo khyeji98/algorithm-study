@@ -1,33 +1,20 @@
+# 로마숫자는 큰수 -> 작은수 순서로 적힌다.
+# 단, 작은수가 큰수 앞에 오면 큰수 - 작은수 의 값이 된다.
+# 따라서 이전 숫자와 비교하여 이전 숫자가 작으면 2배를 빼주면 된다.
+
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 class Solution:
-    def charToInt(self, char: chr) -> int:
-        if char == 'I': return 1
-        if char == 'V': return 5
-        if char == 'X': return 10
-        if char == 'L': return 50
-        if char == 'C': return 100
-        if char == 'D': return 500
-        if char == 'M': return 1000
-
     def romanToInt(self, s: str) -> int:
+        romans = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
         result = 0
+        prev_value = 0
 
-        for index, char in enumerate(s):
-            if char == 'I':
-                if index + 1 < len(s) and s[index + 1] in ['V', 'X']:
-                    result -= self.charToInt(char)
-                else:
-                    result += self.charToInt(char)
-            elif char == 'X':
-                if index + 1 < len(s) and s[index + 1] in ['L', 'C']:
-                    result -= self.charToInt(char)
-                else:
-                    result += self.charToInt(char)
-            elif char == 'C':
-                if index + 1 < len(s) and s[index + 1] in ['D', 'M']:
-                    result -= self.charToInt(char)
-                else:
-                    result += self.charToInt(char)
-            else:
-                result += self.charToInt(char)
+        for char in s:  
+            current_value = romans[char]
+            result += current_value
+            if prev_value < current_value:
+                result -= 2 * prev_value
+            prev_value = current_value
         
         return result
