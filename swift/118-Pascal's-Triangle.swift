@@ -10,20 +10,18 @@ class Solution {
 
         for row in 1..<numRows {
             let previous = result[row-1]
-            var nums: [Int] = []
+            var currentRow: [Int] = []
+            currentRow.reserveCapacity(row+1) // 1. 미리 용량 할당으로 성능 최적화, (realloc) 수차례 발생 방지
+            
             for i in 0...row {
-                switch i {
-                case 0:
-                    nums.append(previous.first!)
-                case row:
-                    nums.append(previous.last!)
-                default:
-                    let num1 = previous[i-1]
-                    let num2 = previous[i]
-                    nums.append(num1+num2)
+                // 2. 분기 수 3 => 단일 조건 검사로 최적화 가능
+                if i == 0 || i == row {
+                    currentRow.append(1)  // 3. 양 끝은 항상 1이므로, 상수 접근
+                } else {
+                    currentRow.append(previous[i-1] + previous[i])
                 }
             }
-            result.append(nums)
+            result.append(currentRow)
         }
 
         return result
