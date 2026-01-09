@@ -13,5 +13,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LLM_PROVIDER: anthropic              # openai, google, anthropic
           MODEL_NAME: Claude-sonnet-4-5  # 모델명 (선택사항)
-          GEMINI_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY	: ${{ secrets.ANTHROPIC_API_KEY }}
           REVIEW_LANGUAGE: korean           # korean, english, etc..
