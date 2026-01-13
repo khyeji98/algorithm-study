@@ -5,6 +5,10 @@ on:
 jobs:
   ai-review:
     runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: "utf-8"
+      LANG: "C.UTF-8"
     permissions:
       contents: write
     steps:
