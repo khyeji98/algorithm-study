@@ -1,6 +1,11 @@
 on:
   push:
     branches: [ main ]
+    paths:
+      - "swift/**"
+      - "python/**"
+      - "**/*.swift"
+      - "**/*.py"
 
 jobs:
   ai-review:
