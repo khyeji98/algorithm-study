@@ -7,7 +7,7 @@ class Solution:
         char_index = {} # <= table
 
         for (trailing, char) in enumerate(s):
-            if char in char_index and char_index[char] >= leading:
+            if char in char_index and char_index[char] >= leading: # 중복 문자 발견, leading이랑 같아도 다음 index로 이동해야 함
                 leading = char_index[char] + 1
             
             char_index[char] = trailing
